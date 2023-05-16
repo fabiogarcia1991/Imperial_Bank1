@@ -1,0 +1,64 @@
+saque = 0
+valor = 0
+saldo = 0
+limite = 500
+limite_dia = 0
+extrato = ''
+
+while True:
+    print('''
+=======Imperial Bank=======
+[a] Saque
+[b] Depósito
+[c] Extrato
+[d] Sair
+
+==============================
+''')
+    print('Digite a opção desejada: ')
+    opção = str(input())
+    if opção == 'a':
+        saque = float(input('Digite aqui o valor do saque: '))
+        if saque > 0:
+            valor = 0
+            valor += saque
+            limite_dia = limite_dia + 1
+            if limite_dia <= 3:
+                if saque > saldo:
+                    print('Operação falhou! Saldo insuficiente'.upper())
+                elif saque > limite:
+                    print('Operação falhou! Você excedeu o valor limite de saque.'.upper())
+                else:
+                    saldo = saldo - saque
+                    extrato += f'Saque: R$ {valor}\n'
+                    print('Operação realizada com sucesso!')
+            else:
+                print('Você já atingiu o limite diário de saques!'.upper())
+                print('Ligue para a sua agência em caso de emergência.'.upper())
+                break
+        else:
+            print('Opção inválida!'.upper(), 'Informe um valor positivo.'.upper())
+
+    elif opção == 'b':
+        deposito = float(input('Digite aqui o valor do depósito'))
+        if deposito > 0:
+            valor = 0
+            valor += deposito
+            saldo += deposito
+            extrato += f'Depósito: R$ {valor}\n'
+            print('Operação realizada com sucesso!')
+        else:
+            print('Opção inválida.'.upper(), 'Informe um valor positivo'.upper())
+    elif opção == 'c':
+        if valor == 0:
+            print('===================Extrato======================')
+            print('Você ainda não realizou nenhuma operação'.upper())
+        else:
+            print('===================Extrato======================')
+            print(extrato)
+            print(f'Saldo: R$ {saldo}')
+    elif opção == 'd':
+        print('Obrigado por ser nosso cliente!')
+        break
+    else:
+        print('Opção inválida. Digite a opção desejada')
